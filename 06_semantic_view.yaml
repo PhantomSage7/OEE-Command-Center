@@ -1,0 +1,502 @@
+name: VIBRATION_MANAGEMENT
+description: Predictive Maintenance & OEE Command Center semantic model for a multi-plant
+  vibration management system. Covers equipment health monitoring (bearing health
+  scores, ISO 10816 vibration severity, ADR risk classification), OEE metrics (Availability,
+  Performance, Quality), maintenance ticket lifecycle (MTTR, SLA compliance), vibration
+  alerts, and cross-plant executive dashboards. Equipment types include Motors, Compressors,
+  Blowers, Pumps, and Fans across 3 chemical/polymer/pharma plants. Uses process-industry
+  naming conventions (MTR 510 A, COMP 520 C, etc.).
+tables:
+  - name: DT_BEARING_HEALTH
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: CURATED
+      table: DT_BEARING_HEALTH
+    dimensions:
+      - name: ASSET_ID
+        expr: ASSET_ID
+        data_type: VARCHAR
+      - name: ASSET_NAME
+        expr: ASSET_NAME
+        data_type: VARCHAR
+      - name: ASSET_TYPE
+        expr: ASSET_TYPE
+        data_type: VARCHAR
+      - name: MACHINE_CLASS
+        expr: MACHINE_CLASS
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: GROUP_NAME
+        expr: GROUP_NAME
+        data_type: VARCHAR
+      - name: CRITICALITY
+        expr: CRITICALITY
+        data_type: VARCHAR
+      - name: AREA_NAME
+        expr: AREA_NAME
+        data_type: VARCHAR
+      - name: WORST_ISO_ZONE
+        expr: WORST_ISO_ZONE
+        data_type: VARCHAR
+      - name: WORST_TEMP_STATUS
+        expr: WORST_TEMP_STATUS
+        data_type: VARCHAR
+      - name: ADR_RISK
+        expr: ADR_RISK
+        data_type: VARCHAR
+      - name: ANOMALY_FLAG
+        expr: ANOMALY_FLAG
+        data_type: BOOLEAN
+    time_dimensions:
+      - name: LAST_READING_TS
+        expr: LAST_READING_TS
+        data_type: TIMESTAMP_NTZ
+    facts:
+      - name: PEAK_VEL_RMS
+        expr: PEAK_VEL_RMS
+        data_type: FLOAT
+      - name: PEAK_RSS_ACCEL
+        expr: PEAK_RSS_ACCEL
+        data_type: FLOAT
+      - name: MAX_TEMPERATURE_C
+        expr: MAX_TEMPERATURE_C
+        data_type: FLOAT
+      - name: BEARING_HEALTH_SCORE
+        expr: BEARING_HEALTH_SCORE
+        data_type: FLOAT
+      - name: MAX_VEL_ZSCORE
+        expr: MAX_VEL_ZSCORE
+        data_type: FLOAT
+    unique_keys:
+      - columns:
+          - ASSET_ID
+          - ASSET_NAME
+          - ASSET_TYPE
+          - MACHINE_CLASS
+          - PLANT_ID
+          - PLANT_NAME
+          - GROUP_NAME
+          - CRITICALITY
+          - AREA_NAME
+  - name: DT_OEE_METRICS
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_OEE_METRICS
+    dimensions:
+      - name: RUN_ID
+        expr: RUN_ID
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: PRODUCTION_LINE
+        expr: PRODUCTION_LINE
+        data_type: VARCHAR
+      - name: SHIFT
+        expr: SHIFT
+        data_type: VARCHAR
+      - name: PLANNED_QUANTITY
+        expr: PLANNED_QUANTITY
+        data_type: NUMBER
+      - name: ACTUAL_QUANTITY
+        expr: ACTUAL_QUANTITY
+        data_type: NUMBER
+      - name: GOOD_QUANTITY
+        expr: GOOD_QUANTITY
+        data_type: NUMBER
+      - name: PRODUCT_CODE
+        expr: PRODUCT_CODE
+        data_type: VARCHAR
+      - name: OEE_CATEGORY
+        expr: OEE_CATEGORY
+        data_type: VARCHAR
+    time_dimensions:
+      - name: RUN_DATE
+        expr: RUN_DATE
+        data_type: DATE
+    facts:
+      - name: PLANNED_RUNTIME_MIN
+        expr: PLANNED_RUNTIME_MIN
+        data_type: FLOAT
+      - name: ACTUAL_RUNTIME_MIN
+        expr: ACTUAL_RUNTIME_MIN
+        data_type: FLOAT
+      - name: PLANNED_DOWNTIME_MIN
+        expr: PLANNED_DOWNTIME_MIN
+        data_type: FLOAT
+      - name: UNPLANNED_DOWNTIME_MIN
+        expr: UNPLANNED_DOWNTIME_MIN
+        data_type: FLOAT
+      - name: AVAILABILITY
+        expr: AVAILABILITY
+        data_type: FLOAT
+      - name: PERFORMANCE
+        expr: PERFORMANCE
+        data_type: FLOAT
+      - name: QUALITY
+        expr: QUALITY
+        data_type: FLOAT
+      - name: OEE
+        expr: OEE
+        data_type: FLOAT
+  - name: DT_MAINTENANCE_HISTORY
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: CURATED
+      table: DT_MAINTENANCE_HISTORY
+    dimensions:
+      - name: TICKET_ID
+        expr: TICKET_ID
+        data_type: VARCHAR
+      - name: ASSET_ID
+        expr: ASSET_ID
+        data_type: VARCHAR
+      - name: ASSET_NAME
+        expr: ASSET_NAME
+        data_type: VARCHAR
+      - name: ASSET_TYPE
+        expr: ASSET_TYPE
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: GROUP_NAME
+        expr: GROUP_NAME
+        data_type: VARCHAR
+      - name: INCIDENT_ID
+        expr: INCIDENT_ID
+        data_type: VARCHAR
+      - name: FAILURE_MODE
+        expr: FAILURE_MODE
+        data_type: VARCHAR
+      - name: ROOT_CAUSE
+        expr: ROOT_CAUSE
+        data_type: VARCHAR
+      - name: SEVERITY
+        expr: SEVERITY
+        data_type: VARCHAR
+      - name: STATUS
+        expr: STATUS
+        data_type: VARCHAR
+      - name: ACKNOWLEDGED_BY_NAME
+        expr: ACKNOWLEDGED_BY_NAME
+        data_type: VARCHAR
+      - name: ASSIGNED_TO_NAME
+        expr: ASSIGNED_TO_NAME
+        data_type: VARCHAR
+      - name: CORRECTIVE_ACTIONS_REC
+        expr: CORRECTIVE_ACTIONS_REC
+        data_type: VARCHAR
+      - name: CORRECTIVE_ACTIONS_TAKEN
+        expr: CORRECTIVE_ACTIONS_TAKEN
+        data_type: VARCHAR
+      - name: PRE_REPAIR_HEALTH_SCORE
+        expr: PRE_REPAIR_HEALTH_SCORE
+        data_type: NUMBER
+      - name: POST_REPAIR_HEALTH_SCORE
+        expr: POST_REPAIR_HEALTH_SCORE
+        data_type: NUMBER
+      - name: HEALTH_IMPROVEMENT
+        expr: HEALTH_IMPROVEMENT
+        data_type: NUMBER
+      - name: MTTR_HOURS
+        expr: MTTR_HOURS
+        data_type: NUMBER
+      - name: TIME_TO_ACK_HOURS
+        expr: TIME_TO_ACK_HOURS
+        data_type: NUMBER
+      - name: TICKET_AGE_DAYS
+        expr: TICKET_AGE_DAYS
+        data_type: NUMBER
+    time_dimensions:
+      - name: ISSUE_OPEN_DATE
+        expr: ISSUE_OPEN_DATE
+        data_type: TIMESTAMP_NTZ
+      - name: ISSUE_CLOSURE_DATE
+        expr: ISSUE_CLOSURE_DATE
+        data_type: TIMESTAMP_NTZ
+    facts:
+      - name: DOWNTIME_HOURS
+        expr: DOWNTIME_HOURS
+        data_type: FLOAT
+  - name: DT_VIBRATION_ALERTS
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_VIBRATION_ALERTS
+    dimensions:
+      - name: ASSET_ID
+        expr: ASSET_ID
+        data_type: VARCHAR
+      - name: ASSET_NAME
+        expr: ASSET_NAME
+        data_type: VARCHAR
+      - name: ASSET_TYPE
+        expr: ASSET_TYPE
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: GROUP_NAME
+        expr: GROUP_NAME
+        data_type: VARCHAR
+      - name: CRITICALITY
+        expr: CRITICALITY
+        data_type: VARCHAR
+      - name: AREA_NAME
+        expr: AREA_NAME
+        data_type: VARCHAR
+      - name: ADR_RISK
+        expr: ADR_RISK
+        data_type: VARCHAR
+      - name: ALERT_SEVERITY
+        expr: ALERT_SEVERITY
+        data_type: VARCHAR
+      - name: RECOMMENDED_ACTION
+        expr: RECOMMENDED_ACTION
+        data_type: VARCHAR
+      - name: IS_ACTIONABLE
+        expr: IS_ACTIONABLE
+        data_type: BOOLEAN
+    time_dimensions:
+      - name: LAST_READING_TS
+        expr: LAST_READING_TS
+        data_type: TIMESTAMP_NTZ
+    facts:
+      - name: PEAK_VEL_RMS
+        expr: PEAK_VEL_RMS
+        data_type: FLOAT
+      - name: PEAK_RSS_ACCEL
+        expr: PEAK_RSS_ACCEL
+        data_type: FLOAT
+      - name: MAX_TEMPERATURE_C
+        expr: MAX_TEMPERATURE_C
+        data_type: FLOAT
+      - name: BEARING_HEALTH_SCORE
+        expr: BEARING_HEALTH_SCORE
+        data_type: FLOAT
+    unique_keys:
+      - columns:
+          - ASSET_ID
+          - ASSET_NAME
+          - ASSET_TYPE
+          - PLANT_ID
+          - PLANT_NAME
+          - GROUP_NAME
+          - CRITICALITY
+          - AREA_NAME
+  - name: DT_PLANT_DASHBOARD
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_PLANT_DASHBOARD
+    primary_key:
+      columns:
+        - PLANT_ID
+    dimensions:
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: TOTAL_ASSETS
+        expr: TOTAL_ASSETS
+        data_type: NUMBER
+      - name: ASSETS_LOW_RISK
+        expr: ASSETS_LOW_RISK
+        data_type: NUMBER
+      - name: ASSETS_MEDIUM_RISK
+        expr: ASSETS_MEDIUM_RISK
+        data_type: NUMBER
+      - name: ASSETS_HIGH_RISK
+        expr: ASSETS_HIGH_RISK
+        data_type: NUMBER
+      - name: ASSETS_CRITICAL_RISK
+        expr: ASSETS_CRITICAL_RISK
+        data_type: NUMBER
+      - name: OPEN_TICKETS
+        expr: OPEN_TICKETS
+        data_type: NUMBER
+      - name: CRITICAL_OPEN_TICKETS
+        expr: CRITICAL_OPEN_TICKETS
+        data_type: NUMBER
+      - name: ACTIVE_ALERTS
+        expr: ACTIVE_ALERTS
+        data_type: NUMBER
+      - name: CRITICAL_ALERTS
+        expr: CRITICAL_ALERTS
+        data_type: NUMBER
+    facts:
+      - name: AVG_HEALTH_SCORE
+        expr: AVG_HEALTH_SCORE
+        data_type: FLOAT
+      - name: MIN_HEALTH_SCORE
+        expr: MIN_HEALTH_SCORE
+        data_type: FLOAT
+      - name: AVG_OEE_30D
+        expr: AVG_OEE_30D
+        data_type: FLOAT
+      - name: AVG_AVAILABILITY_30D
+        expr: AVG_AVAILABILITY_30D
+        data_type: FLOAT
+      - name: AVG_PERFORMANCE_30D
+        expr: AVG_PERFORMANCE_30D
+        data_type: FLOAT
+      - name: AVG_QUALITY_30D
+        expr: AVG_QUALITY_30D
+        data_type: FLOAT
+      - name: AVG_MTTR_HOURS
+        expr: AVG_MTTR_HOURS
+        data_type: NUMBER
+  - name: DT_TICKET_ANALYTICS
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_TICKET_ANALYTICS
+    dimensions:
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: TOTAL_TICKETS
+        expr: TOTAL_TICKETS
+        data_type: NUMBER
+      - name: CLOSED_TICKETS
+        expr: CLOSED_TICKETS
+        data_type: NUMBER
+      - name: OPEN_TICKETS
+        expr: OPEN_TICKETS
+        data_type: NUMBER
+      - name: CRITICAL_COUNT
+        expr: CRITICAL_COUNT
+        data_type: NUMBER
+      - name: HIGH_COUNT
+        expr: HIGH_COUNT
+        data_type: NUMBER
+      - name: MEDIUM_COUNT
+        expr: MEDIUM_COUNT
+        data_type: NUMBER
+      - name: LOW_COUNT
+        expr: LOW_COUNT
+        data_type: NUMBER
+      - name: BEARING_DEFECT_COUNT
+        expr: BEARING_DEFECT_COUNT
+        data_type: NUMBER
+      - name: MISALIGNMENT_COUNT
+        expr: MISALIGNMENT_COUNT
+        data_type: NUMBER
+      - name: UNBALANCE_COUNT
+        expr: UNBALANCE_COUNT
+        data_type: NUMBER
+      - name: LOOSENESS_COUNT
+        expr: LOOSENESS_COUNT
+        data_type: NUMBER
+      - name: ELECTRICAL_COUNT
+        expr: ELECTRICAL_COUNT
+        data_type: NUMBER
+      - name: LUBRICATION_COUNT
+        expr: LUBRICATION_COUNT
+        data_type: NUMBER
+      - name: MAX_MTTR_HOURS
+        expr: MAX_MTTR_HOURS
+        data_type: NUMBER
+    time_dimensions:
+      - name: MONTH
+        expr: MONTH
+        data_type: DATE
+    facts:
+      - name: AVG_MTTR_HOURS
+        expr: AVG_MTTR_HOURS
+        data_type: NUMBER
+      - name: MEDIAN_MTTR_HOURS
+        expr: MEDIAN_MTTR_HOURS
+        data_type: NUMBER
+      - name: AVG_TIME_TO_ACK_HOURS
+        expr: AVG_TIME_TO_ACK_HOURS
+        data_type: NUMBER
+      - name: TOTAL_DOWNTIME_HOURS
+        expr: TOTAL_DOWNTIME_HOURS
+        data_type: FLOAT
+      - name: AVG_HEALTH_IMPROVEMENT
+        expr: AVG_HEALTH_IMPROVEMENT
+        data_type: NUMBER
+    unique_keys:
+      - columns:
+          - PLANT_ID
+          - PLANT_NAME
+          - MONTH
+verified_queries:
+  - name: 0;1
+    question: What is the overview of all plants ranked by equipment health performance?
+    sql: SELECT PLANT_NAME, TOTAL_ASSETS, AVG_HEALTH_SCORE, AVG_OEE_30D, OPEN_TICKETS,
+      ACTIVE_ALERTS FROM dt_plant_dashboard ORDER BY AVG_HEALTH_SCORE
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 1;1
+    question: Which assets are at risk and what are their health metrics?
+    sql: SELECT ASSET_NAME, PLANT_NAME, BEARING_HEALTH_SCORE, ADR_RISK, PEAK_VEL_RMS,
+      MAX_TEMPERATURE_C FROM dt_bearing_health WHERE ADR_RISK <> 'LOW_RISK' ORDER
+      BY BEARING_HEALTH_SCORE
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 2;1
+    question: What are all the actionable vibration alerts that require attention?
+    sql: SELECT ASSET_NAME, PLANT_NAME, ALERT_SEVERITY, RECOMMENDED_ACTION, BEARING_HEALTH_SCORE
+      FROM dt_vibration_alerts WHERE IS_ACTIONABLE = TRUE ORDER BY ALERT_SEVERITY
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 3;1
+    question: What is the average OEE performance by plant and production line over
+      the last 30 days?
+    sql: SELECT PLANT_NAME, PRODUCTION_LINE, AVG(OEE) AS AVG_OEE, AVG(AVAILABILITY)
+      AS AVG_AVAIL, AVG(PERFORMANCE) AS AVG_PERF, AVG(QUALITY) AS AVG_QUAL FROM dt_oee_metrics
+      WHERE RUN_DATE >= DATEADD(DAY, -30, CURRENT_DATE) GROUP BY PLANT_NAME, PRODUCTION_LINE
+      ORDER BY AVG_OEE
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 4;1
+    question: What are the open maintenance tickets?
+    sql: SELECT TICKET_ID, ASSET_NAME, PLANT_NAME, SEVERITY, STATUS, ISSUE_OPEN_DATE,
+      CORRECTIVE_ACTIONS_REC, TICKET_AGE_DAYS FROM dt_maintenance_history WHERE STATUS
+      <> 'CLOSED' ORDER BY SEVERITY DESC, ISSUE_OPEN_DATE
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 5;1
+    question: Which are the 10 worst health assets?
+    sql: SELECT ASSET_NAME, PLANT_NAME, BEARING_HEALTH_SCORE, PEAK_VEL_RMS, PEAK_RSS_ACCEL,
+      MAX_TEMPERATURE_C, WORST_ISO_ZONE FROM dt_bearing_health ORDER BY BEARING_HEALTH_SCORE
+      ASC LIMIT 10
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 6;1
+    question: What are the maintenance ticket trends by plant and month?
+    sql: SELECT PLANT_NAME, MONTH, TOTAL_TICKETS, AVG_MTTR_HOURS, TOTAL_DOWNTIME_HOURS,
+      BEARING_DEFECT_COUNT, MISALIGNMENT_COUNT, UNBALANCE_COUNT FROM dt_ticket_analytics
+      ORDER BY PLANT_NAME, MONTH
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
+  - name: 7;1
+    question: What are the most common failure modes and their average repair time?
+    sql: SELECT FAILURE_MODE, COUNT(*) AS INCIDENT_COUNT, AVG(MTTR_HOURS) AS AVG_MTTR,
+      SUM(DOWNTIME_HOURS) AS TOTAL_DOWNTIME FROM dt_maintenance_history WHERE NOT
+      FAILURE_MODE IS NULL GROUP BY FAILURE_MODE ORDER BY INCIDENT_COUNT DESC
+    verified_at: 1789734674
+    verified_by: Semantic Model Generator
