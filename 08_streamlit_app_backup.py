@@ -143,20 +143,18 @@ def short_plant(name):
 # ═══════════════════════════════════════════════════════════════════════
 CSS_TOKENS = """
 :root{
-  --bg:#0A1628; --panel:rgba(255,255,255,0.04); --panel2:rgba(255,255,255,0.07); --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.12);
-  --accent:#3B82F6; --teal:#14B8A6; --text:#F0F4F8; --muted:rgba(255,255,255,0.45); --num:#FFFFFF;
+  --bg:#0A0E14; --panel:#111827; --panel2:#1A2233; --border:#1F2937; --border2:#2D3A4D;
+  --accent:#3B82F6; --teal:#14B8A6; --text:#E2E8F0; --muted:#8494A7; --num:#F1F5F9;
   --green:#22C55E; --yellow:#EAB308; --orange:#F97316; --red:#EF4444;
-  --cyan:#06B6D4; --purple:#A78BFA;
+  --cyan:#06B6D4; --purple:#8B5CF6;
   --font:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,"Cascadia Mono",Consolas,monospace;
-  --r:14px; --r-sm:10px;
-  --glass:rgba(255,255,255,0.04); --glass-border:rgba(255,255,255,0.08);
-  --blur:blur(12px);
+  --r:6px; --r-sm:4px;
 }
 """
 
 CSS_COMMON = """
-.stApp{background:linear-gradient(135deg,#0A1628 0%,#0D2137 40%,#0B1A30 70%,#091425 100%);}
+.stApp{background:var(--bg);}
 html,body{font-family:var(--font);}
 .block-container{padding:0 1.4rem 2rem 1.4rem!important;max-width:100%;}
 h1,h2,h3,h4,h5,h6,p,span,div,label,li,td,th{font-family:var(--font);color:var(--text);}
@@ -167,39 +165,34 @@ header[data-testid="stHeader"]{display:none!important;}
 [data-testid="stToolbar"]{display:none!important;}
 
 .stButton>button,.stDownloadButton>button,.stFormSubmitButton>button{
-  background:var(--glass);color:rgba(255,255,255,.7);border:1px solid var(--glass-border);
-  border-radius:var(--r-sm);font-family:var(--font);font-size:.76rem;font-weight:500;
-  letter-spacing:.02em;padding:.45rem .8rem;transition:all .15s ease;
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);}
+  background:var(--panel2);color:var(--text);border:1px solid var(--border2);
+  border-radius:var(--r-sm);font-family:var(--font);font-size:.76rem;font-weight:600;
+  letter-spacing:.05em;padding:.5rem .85rem;transition:all .14s ease;box-shadow:none;}
 .stButton>button:hover,.stDownloadButton>button:hover,.stFormSubmitButton>button:hover{
-  background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:#fff;}
-label[data-testid="stWidgetLabel"] p{font-size:.68rem;font-weight:500;letter-spacing:.03em;
+  background:rgba(59,130,246,.14);border-color:var(--accent);color:#fff;}
+label[data-testid="stWidgetLabel"] p{font-size:.67rem;font-weight:600;letter-spacing:.06em;
   text-transform:uppercase;color:var(--muted);margin-bottom:.15rem;}
 .stTextInput input,.stNumberInput input,.stTextArea textarea{
-  background:rgba(255,255,255,.04)!important;color:var(--text)!important;border:1px solid rgba(255,255,255,.08)!important;
-  border-radius:var(--r-sm)!important;font-family:var(--font)!important;font-size:.84rem!important;
-  backdrop-filter:var(--blur)!important;-webkit-backdrop-filter:var(--blur)!important;}
-.stTextInput input:focus,.stTextArea textarea:focus{border-color:rgba(59,130,246,.4)!important;
-  box-shadow:0 0 0 2px rgba(59,130,246,.12)!important;}
-div[data-baseweb="select"]>div{background:rgba(255,255,255,.04)!important;border-color:rgba(255,255,255,.08)!important;
-  border-radius:var(--r-sm)!important;font-size:.84rem;
-  backdrop-filter:var(--blur)!important;-webkit-backdrop-filter:var(--blur)!important;}
-span[data-baseweb="tag"]{background:rgba(59,130,246,.15)!important;border:1px solid rgba(59,130,246,.25)!important;
-  color:#93C5FD!important;border-radius:var(--r-sm)!important;}
+  background:var(--panel2)!important;color:var(--text)!important;border:1px solid var(--border)!important;
+  border-radius:var(--r-sm)!important;font-family:var(--font)!important;font-size:.84rem!important;}
+.stTextInput input:focus,.stTextArea textarea:focus{border-color:var(--accent)!important;
+  box-shadow:0 0 0 3px rgba(59,130,246,.16)!important;}
+div[data-baseweb="select"]>div{background:var(--panel2)!important;border-color:var(--border)!important;
+  border-radius:var(--r-sm)!important;font-size:.84rem;}
+span[data-baseweb="tag"]{background:rgba(59,130,246,.18)!important;border:1px solid rgba(59,130,246,.35)!important;
+  color:#DBEAFE!important;border-radius:var(--r-sm)!important;}
 [data-testid="stCheckbox"] p{font-size:.78rem;color:var(--text);text-transform:none;letter-spacing:0;}
-hr{border-color:rgba(255,255,255,.06);}
+hr{border-color:var(--border);}
 """
 
 CSS_APP = """
 .topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);
-  padding:.45rem .9rem;margin-bottom:.65rem;
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 4px 24px rgba(0,0,0,.2);}
-.tb-mark{width:26px;height:26px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;
-  background:var(--text);color:var(--bg);font-weight:800;font-size:.6rem;letter-spacing:-.02em;}
-.tb-title{font-size:.78rem;font-weight:600;letter-spacing:.06em;color:var(--text);line-height:1.1;}
-.tb-sub{font-size:.52rem;font-weight:500;letter-spacing:.06em;color:var(--muted);margin-top:1px;}
+  background:linear-gradient(90deg,var(--panel) 0%,var(--panel) 55%,#141D29 100%);
+  border:1px solid var(--border);border-radius:var(--r);padding:.5rem .85rem;margin-bottom:.8rem;}
+.tb-mark{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--teal),var(--accent));color:#05121D;font-weight:800;font-size:.68rem;letter-spacing:-.02em;}
+.tb-title{font-size:.8rem;font-weight:700;letter-spacing:.15em;color:var(--text);line-height:1.1;}
+.tb-sub{font-size:.57rem;font-weight:600;letter-spacing:.14em;color:var(--muted);margin-top:2px;}
 .tb-sp{flex:1 1 auto;}
 .tb-clock{font-family:var(--mono);font-size:.72rem;color:var(--muted);white-space:nowrap;}
 .tb-div{width:1px;height:22px;background:var(--border);}
@@ -209,62 +202,55 @@ CSS_APP = """
   animation:blink 2.6s ease-in-out infinite;}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 
-.alarm{display:flex;align-items:center;gap:10px;border:1px solid rgba(239,68,68,.2);
-  border-radius:var(--r);background:rgba(239,68,68,.06);
+.alarm{display:flex;align-items:center;gap:10px;border:1px solid rgba(239,68,68,.32);
+  border-left:3px solid var(--red);border-radius:var(--r-sm);
+  background:linear-gradient(90deg,rgba(239,68,68,.15),rgba(249,115,22,.05));
   padding:.5rem .85rem;margin-bottom:.8rem;font-size:.76rem;font-weight:600;
-  letter-spacing:.03em;color:#FCA5A5;
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 4px 24px rgba(0,0,0,.15);}
+  letter-spacing:.03em;color:#FCA5A5;}
 .alarm b{font-family:var(--mono);color:#fff;font-size:.82rem;}
 
-.kpi{position:relative;height:100%;
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  border-radius:var(--r);padding:.85rem 1rem .9rem;
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 4px 24px rgba(0,0,0,.15);}
-.kpi::before{content:"";position:absolute;top:0;left:12%;right:12%;height:3px;
-  border-radius:0 0 3px 3px;background:var(--c,var(--accent));opacity:.7;}
-.kpi-l{font-size:.6rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
-  color:var(--muted);margin-bottom:.35rem;}
-.kpi-v{font-family:var(--mono);font-size:1.7rem;font-weight:700;line-height:1.05;
-  color:var(--text);letter-spacing:-.03em;}
-.kpi-u{font-family:var(--font);font-size:.7rem;font-weight:400;color:var(--muted);margin-left:3px;}
-.kpi-s{font-size:.6rem;color:var(--muted);margin-top:.3rem;}
+.kpi{position:relative;height:100%;overflow:hidden;background:var(--panel);
+  border:1px solid var(--border);border-radius:var(--r);padding:.72rem .9rem .78rem;
+  transition:border-color .15s ease,transform .15s ease;}
+.kpi:hover{border-color:var(--border2);transform:translateY(-1px);}
+.kpi::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--c,var(--accent));}
+.kpi-l{font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:.3rem;}
+.kpi-v{font-family:var(--mono);font-size:1.6rem;font-weight:700;line-height:1.05;
+  color:var(--num);letter-spacing:-.02em;}
+.kpi-u{font-family:var(--font);font-size:.75rem;font-weight:500;color:var(--muted);margin-left:4px;}
+.kpi-s{font-size:.63rem;color:var(--muted);margin-top:.3rem;}
 
-.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  border-radius:var(--r);padding:.85rem 1rem;margin-bottom:.65rem;
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 4px 24px rgba(0,0,0,.15);}
+.card{background:var(--panel);border:1px solid var(--border);border-left:3px solid var(--c,var(--green));
+  border-radius:var(--r);padding:.8rem .9rem .85rem;margin-bottom:.7rem;}
 .card-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:.65rem;}
 .card-t{font-size:.86rem;font-weight:700;color:var(--text);line-height:1.2;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem .9rem;}
 .mrow{display:flex;align-items:baseline;justify-content:space-between;gap:6px;}
 .mlbl{font-size:.61rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);}
 .mval{font-family:var(--mono);font-size:.86rem;font-weight:600;color:var(--num);}
-.meter{height:4px;border-radius:2px;background:var(--border2);overflow:hidden;margin-top:5px;}
+.meter{height:5px;border-radius:3px;background:#1C2431;overflow:hidden;margin-top:5px;}
 .meter>i{display:block;height:100%;border-radius:3px;}
 .cardfoot{display:flex;gap:8px;flex-wrap:wrap;margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--border);}
 
-.chip{display:inline-flex;align-items:center;gap:4px;padding:.12rem .45rem;border-radius:4px;
-  font-size:.6rem;font-weight:500;letter-spacing:.02em;white-space:nowrap;border:none;background:var(--panel2);}
-.dot{width:6px;height:6px;border-radius:50%;flex:none;}
+.chip{display:inline-flex;align-items:center;gap:5px;padding:.15rem .5rem;border-radius:999px;
+  font-size:.62rem;font-weight:700;letter-spacing:.06em;white-space:nowrap;border:1px solid transparent;}
+.dot{width:7px;height:7px;border-radius:50%;flex:none;}
 """
 
 CSS_APP2 = """
-.sec{display:flex;align-items:center;gap:10px;margin:.9rem 0 .45rem;}
-.sec-t{font-size:.65rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+.sec{display:flex;align-items:center;gap:10px;margin:1.05rem 0 .55rem;}
+.sec-t{font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
   color:var(--muted);white-space:nowrap;}
 .sec-r{flex:1;height:1px;background:var(--border);}
-.sec-h{font-size:.6rem;color:var(--muted);white-space:nowrap;font-weight:400;}
+.sec-h{font-size:.64rem;color:#6E7C90;white-space:nowrap;}
 
-.tw{max-height:600px;overflow:auto;border:1px solid rgba(255,255,255,.08);border-radius:var(--r);
-  background:rgba(255,255,255,.02);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 4px 24px rgba(0,0,0,.15);}
+.tw{max-height:600px;overflow:auto;border:1px solid var(--border);border-radius:var(--r);}
 table.dt{width:100%;border-collapse:separate;border-spacing:0;font-size:.78rem;}
-table.dt thead th{position:sticky;top:0;z-index:2;background:var(--bg);color:var(--muted);
-  font-size:.58rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
-  padding:.5rem .7rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
-table.dt td{padding:.42rem .7rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+table.dt thead th{position:sticky;top:0;z-index:2;background:#0F151E;color:var(--muted);
+  font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:.55rem .7rem;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+table.dt td{padding:.45rem .7rem;border-bottom:1px solid rgba(35,45,59,.75);vertical-align:middle;}
 table.dt tbody tr:hover td{background:rgba(59,130,246,.06);}
 table.dt tbody tr.crit td{background:rgba(239,68,68,.05);}
 table.dt .mono{font-family:var(--mono);color:var(--num);}
@@ -275,14 +261,10 @@ table.dt .act{font-size:.72rem;color:#A9B6C7;max-width:300px;}
 .cbt{width:54px;height:4px;border-radius:2px;background:#1C2431;overflow:hidden;flex:none;}
 .cbt>i{display:block;height:4px;border-radius:2px;}
 
-.empty{border:1px solid rgba(255,255,255,.08);border-radius:var(--r);
-  background:rgba(255,255,255,.02);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem;
-  box-shadow:0 4px 24px rgba(0,0,0,.15);}
-.ok{border:1px solid rgba(34,197,94,.15);background:rgba(34,197,94,.05);color:#86EFAC;
-  border-radius:var(--r);padding:.9rem;text-align:center;font-size:.8rem;font-weight:600;letter-spacing:.04em;
-  backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
-  box-shadow:0 4px 24px rgba(0,0,0,.15);}
+.empty{border:1px dashed var(--border2);border-radius:var(--r);background:rgba(18,24,33,.55);
+  padding:1.5rem;text-align:center;color:var(--muted);font-size:.8rem;}
+.ok{border:1px solid rgba(34,197,94,.3);background:rgba(34,197,94,.07);color:#86EFAC;
+  border-radius:var(--r);padding:.9rem;text-align:center;font-size:.8rem;font-weight:600;letter-spacing:.04em;}
 """
 
 CSS_APP3 = """
@@ -292,22 +274,9 @@ CSS_APP3 = """
 [data-testid="stExpander"] summary p{font-size:.76rem;font-weight:600;color:var(--text);}
 div[data-testid="stAlert"]{border-radius:var(--r);font-size:.8rem;}
 
-.chat-hero{text-align:center;padding:4rem 0 1.5rem 0;}
-.chat-greet{font-size:2.2rem;font-weight:600;letter-spacing:-.04em;color:var(--text);margin-bottom:.4rem;}
-.chat-greet b{color:var(--muted);}
-.chat-sub{font-size:.85rem;font-weight:400;color:var(--muted);margin-bottom:0;}
-
-.chat-pill{display:inline-flex;align-items:center;gap:5px;padding:.3rem .7rem;
-  border:1px solid var(--border);border-radius:999px;font-size:.72rem;font-weight:500;
-  color:var(--muted);background:transparent;cursor:pointer;transition:all .15s ease;}
-.chat-pill:hover{border-color:var(--border2);color:var(--text);background:var(--panel);}
-
-.chat-user{background:transparent;border:none;padding:.6rem 0;margin:0;
-  color:var(--text);font-size:.85rem;border-bottom:1px solid var(--border);}
-.chat-asst{background:transparent;border:none;padding:.6rem 0;margin:0;
-  color:var(--text);font-size:.85rem;line-height:1.65;}
-.chat-role{font-size:.62rem;font-weight:500;letter-spacing:.05em;color:var(--muted);
-  text-transform:uppercase;margin-bottom:.3rem;}
+.chat-user{background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:var(--r);padding:.7rem 1rem;margin:0.4rem 0 0.4rem 15%;color:var(--text);font-size:.85rem;}
+.chat-asst{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:.7rem 1rem;margin:0.4rem 15% 0.4rem 0;color:var(--text);font-size:.85rem;}
+.chat-user strong,.chat-asst strong{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
 
 .fbar{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);padding:.4rem .7rem;margin-bottom:.7rem;}
 """
@@ -317,43 +286,49 @@ CSS_LOGIN = """
 .block-container{padding:0 .8rem 0 .8rem!important;max-width:100%!important;}
 footer,.reportview-container .main footer{display:none!important;}
 [data-testid="stBottom"]{display:none!important;}
-.stApp{background:linear-gradient(135deg,#0A1628 0%,#0D2137 40%,#0B1A30 70%,#091425 100%)!important;}
+.stApp{background:linear-gradient(150deg,#0B1220 0%,#102436 52%,#0B1220 100%)!important;}
+[data-testid="stForm"] .stTextInput{margin-bottom:.25rem;}
+[data-testid="stForm"] label[data-testid="stWidgetLabel"] p{margin-bottom:.05rem;}
+.lg-wrap{padding:2rem .4rem 0 .4rem;}
+.lg-brand{display:flex;align-items:center;gap:11px;margin-bottom:1.1rem;}
+.lg-mark{width:36px;height:36px;border-radius:9px;flex:none;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--teal),var(--accent));color:#04121E;font-size:.82rem;font-weight:800;letter-spacing:-.03em;}
+.lg-name{font-size:.82rem;font-weight:700;letter-spacing:.13em;color:var(--text);}
+.lg-tag{font-size:.52rem;font-weight:600;letter-spacing:.14em;color:var(--muted);margin-top:2px;}
+.lg-h1{font-size:1.45rem;font-weight:600;letter-spacing:-.03em;color:#fff;margin-bottom:.3rem;}
+.lg-p{font-size:.74rem;line-height:1.5;color:var(--muted);margin-bottom:.8rem;max-width:400px;}
+.lg-note{margin-top:.6rem;padding:.5rem .7rem;border:1px solid var(--border);border-radius:var(--r-sm);
+  background:rgba(18,24,33,.7);font-size:.6rem;line-height:1.45;color:var(--muted);}
+.lg-note b{color:var(--text);}
+.lg-foot{margin-top:.6rem;font-size:.55rem;line-height:1.5;color:#5F6D80;}
+[data-testid="stForm"]{border:1px solid var(--border);border-radius:10px;background:var(--panel);
+  padding:.85rem .95rem .7rem;box-shadow:0 18px 44px rgba(0,0,0,.35);}
+[data-testid="stForm"] .stFormSubmitButton>button{width:100%;min-height:38px;
+  background:linear-gradient(135deg,var(--teal),var(--accent));border:none;color:#04121E;
+  font-size:.74rem;font-weight:800;letter-spacing:.09em;}
+[data-testid="stForm"] .stFormSubmitButton>button:hover{filter:brightness(1.1);color:#04121E;}
+.hero{position:relative;overflow:hidden;border-radius:12px;padding:2.5rem;
+  display:flex;align-items:center;border:1px solid var(--border);
+  background:radial-gradient(1000px 560px at 78% 8%,rgba(20,184,166,.16),transparent 62%),
+             linear-gradient(150deg,#0B1220 0%,#102436 52%,#0B1220 100%);}
+.hero-grid{position:absolute;top:0;left:0;right:0;bottom:0;
+  background-image:linear-gradient(rgba(138,152,171,.05) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(138,152,171,.05) 1px,transparent 1px);
+  background-size:44px 44px;}
+.hero-in{position:relative;z-index:2;max-width:620px;}
+.hero-kick{display:inline-block;padding:.32rem .65rem;border:1px solid rgba(20,184,166,.28);
+  border-radius:5px;color:var(--teal);font-size:.59rem;font-weight:800;letter-spacing:.16em;margin-bottom:1.2rem;}
+.hero-h{font-size:2.7rem;font-weight:300;line-height:1.14;letter-spacing:-.04em;color:#F6FAFF;margin-bottom:1rem;}
+.hero-h b{font-weight:500;color:var(--teal);}
+.hero-p{font-size:.85rem;line-height:1.75;color:var(--muted);max-width:520px;margin-bottom:2rem;}
+.hero-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;}
+.hero-card{background:rgba(10,14,20,.6);border:1px solid rgba(138,152,171,.13);border-radius:9px;padding:.85rem;}
+.hero-card b{display:block;font-size:.9rem;font-weight:700;margin-bottom:.3rem;letter-spacing:.04em;}
+.hero-card span{font-size:.63rem;line-height:1.45;color:var(--muted);}
+@media (max-width:1000px){.hero{display:none;}}
 
-h1,h2,h3,h4,h5,h6,p,span,div,label,li{color:var(--text);}
-
-.stTextInput input{
-  background:rgba(255,255,255,.04)!important;color:var(--text)!important;
-  border:1px solid rgba(255,255,255,.08)!important;border-radius:8px!important;
-  font-size:.85rem!important;font-family:var(--font)!important;padding:.6rem .75rem!important;
-  backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important;}
-.stTextInput input:focus{border-color:rgba(20,184,166,.4)!important;box-shadow:0 0 0 3px rgba(20,184,166,.1)!important;}
-.stTextInput input::placeholder{color:rgba(255,255,255,.35)!important;}
-.stTextInput>label{display:none!important;}
-[data-testid="stForm"]{
-  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
-  border-radius:14px;padding:1.1rem 1.2rem .9rem;
-  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-  box-shadow:0 8px 32px rgba(0,0,0,.2);}
-[data-testid="stForm"] .stFormSubmitButton>button{
-  width:100%;min-height:40px;background:#14B8A6!important;border:none!important;
-  color:#fff!important;font-size:.78rem!important;font-weight:600!important;
-  letter-spacing:.02em!important;border-radius:8px!important;}
-[data-testid="stForm"] .stFormSubmitButton>button:hover{background:#0F9F91!important;color:#fff!important;}
-[data-testid="stForm"] .stTextInput{margin-bottom:.3rem;}
-[data-testid="stForm"] label[data-testid="stWidgetLabel"] p{
-  font-size:.7rem;font-weight:500;color:rgba(255,255,255,.45);letter-spacing:.03em;margin-bottom:.1rem;text-transform:uppercase;}
-
-.lg-mark{width:32px;height:32px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(135deg,#14B8A6,#0EA5E9);color:#fff;font-size:.78rem;font-weight:800;}
-.lg-name{font-size:.82rem;font-weight:600;letter-spacing:.06em;color:var(--text);}
-.lg-tag{font-size:.5rem;font-weight:500;letter-spacing:.06em;color:rgba(255,255,255,.4);margin-top:2px;}
-.lg-h1{font-size:1.5rem;font-weight:600;letter-spacing:-.03em;color:var(--text);margin-bottom:.3rem;}
-.lg-p{font-size:.78rem;line-height:1.55;color:rgba(255,255,255,.45);margin-bottom:1rem;max-width:400px;}
-.lg-note{margin-top:.7rem;padding:.5rem .7rem;border:1px solid rgba(255,255,255,.06);border-radius:8px;
-  background:rgba(255,255,255,.03);font-size:.62rem;line-height:1.45;color:rgba(255,255,255,.35);
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
-.lg-note b{color:rgba(255,255,255,.55);}
-.lg-foot{margin-top:.6rem;font-size:.56rem;line-height:1.5;color:rgba(255,255,255,.25);text-align:center;}
+.sso-btn>button{background:var(--panel)!important;color:var(--muted)!important;border:1px solid var(--border)!important;}
+.sso-btn>button:hover{background:var(--panel2)!important;color:var(--text)!important;}
 """
 
 
@@ -495,7 +470,7 @@ def style_chart(fig, ytitle="", xtitle="", height=340, legend=True, percent_y=Fa
                    tickfont=dict(family=MONO, size=10, color=MUTED)),
         yaxis=dict(title=ytitle, gridcolor=GRID, zeroline=False, linecolor=BORDER,
                    tickfont=dict(family=MONO, size=10, color=MUTED)),
-        title=dict(text=""),
+        title=None,
     )
     if percent_y:
         fig.update_yaxes(tickformat=".0%")
@@ -610,8 +585,8 @@ def page_login():
     _, center, _ = st.columns([1, 1.2, 1])
     with center:
         st.markdown(
-            '<div style="text-align:center;margin:12vh 0 1.5rem 0;">'
-            '<div class="lg-mark" style="margin:0 auto .8rem auto;">PM</div>'
+            '<div style="text-align:center;margin:12vh 0 2rem 0;">'
+            '<div class="lg-mark" style="margin:0 auto 1rem auto;">PM</div>'
             '<div class="lg-name" style="text-align:center;">' + APP_NAME + '</div>'
             '<div class="lg-tag" style="text-align:center;">INDUSTRIAL MONITORING PLATFORM</div>'
             '</div>',
@@ -619,15 +594,8 @@ def page_login():
         )
 
         with st.form("login_form", clear_on_submit=False):
-            st.markdown(
-                '<div style="font-size:.65rem;font-weight:700;letter-spacing:.1em;'
-                'color:#14B8A6;margin-bottom:.5rem;">SIGN IN</div>',
-                unsafe_allow_html=True,
-            )
             email = st.text_input("Work email", placeholder="name@company.com", key="login_email")
-            password = st.text_input(
-                "Password", type="password", placeholder="Enter your password", key="login_pw"
-            )
+            password = st.text_input("Password", type="password", placeholder="Enter your password", key="login_pw")
             submitted = st.form_submit_button("SIGN IN", use_container_width=True)
 
         if submitted:
@@ -640,13 +608,6 @@ def page_login():
                     do_rerun()
                 else:
                     st.error("Unable to sign in. Check your credentials or contact your administrator.")
-
-        st.markdown(
-            '<div class="lg-note"><b>Secure access</b> &mdash; restricted to authorized personnel. '
-            'Session activity may be logged for audit purposes.</div>'
-            '<div class="lg-foot">&#169; 2026 Atul Infotech Pvt Ltd</div>',
-            unsafe_allow_html=True,
-        )
 
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -710,8 +671,7 @@ def page_plant_overview():
 
     section("OEE Trend (30 Days)")
     oee = run_query(
-        "SELECT TO_CHAR(RUN_DATE, 'YYYY-MM-DD') AS RUN_DATE, PLANT_NAME, ROUND(AVG(OEE), 4) AS AVG_OEE "
-        "FROM " + DB + ".ANALYTICS.DT_OEE_METRICS "
+        "SELECT RUN_DATE, PLANT_NAME, AVG(OEE) AS AVG_OEE FROM " + DB + ".ANALYTICS.DT_OEE_METRICS "
         "WHERE PLANT_NAME IN (" + plants_sql + ") "
         "  AND RUN_DATE >= DATEADD('day', -30, CURRENT_DATE()) "
         "GROUP BY RUN_DATE, PLANT_NAME ORDER BY RUN_DATE"
@@ -719,7 +679,6 @@ def page_plant_overview():
     if oee.empty:
         empty_state("No OEE records in the last 30 days.")
     else:
-        oee["RUN_DATE"] = pd.to_datetime(oee["RUN_DATE"])
         fig = px.line(oee, x="RUN_DATE", y="AVG_OEE", color="PLANT_NAME", color_discrete_sequence=CHART_COLORS)
         style_chart(fig, ytitle="OEE", height=360, percent_y=True)
         show_chart(fig)
@@ -1013,7 +972,7 @@ def page_ticket_management():
     with col_r:
         section("Monthly Ticket Trend")
         trend = run_query(
-            "SELECT TO_CHAR(MONTH, 'YYYY-MM') AS MONTH, SUM(TOTAL_TICKETS) AS TOTAL_TICKETS, SUM(CLOSED_TICKETS) AS CLOSED_TICKETS, "
+            "SELECT MONTH, SUM(TOTAL_TICKETS) AS TOTAL_TICKETS, SUM(CLOSED_TICKETS) AS CLOSED_TICKETS, "
             "       SUM(OPEN_TICKETS) AS OPEN_TICKETS "
             "FROM " + DB + ".ANALYTICS.DT_TICKET_ANALYTICS "
             "WHERE PLANT_NAME IN (" + plants_sql + ") GROUP BY MONTH ORDER BY MONTH"
@@ -1031,79 +990,47 @@ def page_ticket_management():
 # PAGE 5 - ROOT CAUSE CHAT
 # ═══════════════════════════════════════════════════════════════════════
 SUGGESTED_QUESTIONS = [
-    "Worst health scores",
-    "Common failure modes",
-    "Avg MTTR by plant",
-    "Open ticket backlog",
-    "Plant overview",
-    "ISO zone D trends",
+    "Which assets have the worst health scores?",
+    "What are the most common failure modes?",
+    "Show the average MTTR across all plants",
+    "Which plant has the most open tickets?",
+    "Give me an overview of all plants",
 ]
 
 
 def page_root_cause_chat():
+    f1, f2 = st.columns([4, 1])
+    with f1:
+        st.markdown('<span style="font-size:.72rem;color:' + MUTED + ';">Model: ' + CORTEX_MODEL + '</span>', unsafe_allow_html=True)
+    with f2:
+        if st.button("CLEAR CONVERSATION", use_container_width=True, key="chat_clear"):
+            st.session_state.chat_history = []
+            do_rerun()
+
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-    has_history = len(st.session_state.chat_history) > 0
+    section("Suggested Queries")
+    sample_cols = st.columns(len(SUGGESTED_QUESTIONS))
+    for i, q in enumerate(SUGGESTED_QUESTIONS):
+        if sample_cols[i].button(q, key="sample_" + str(i), use_container_width=True):
+            st.session_state["_pending_query"] = q
 
-    if not has_history:
-        user_name = st.session_state.get("user_name", "").split()[0] if st.session_state.get("user_name") else ""
-        greeting = "What should we <b>analyze?</b>" if not user_name else "Hello " + user_name + ", <b>what should we analyze?</b>"
-        st.markdown(
-            '<div class="chat-hero">'
-            '<div class="chat-greet">' + greeting + '</div>'
-            '<div class="chat-sub">Ask about asset health, failure patterns, MTTR, or plant performance.</div>'
-            '</div>',
-            unsafe_allow_html=True,
-        )
+    st.markdown("---")
 
-    # Input area
+    for msg in st.session_state.chat_history:
+        if msg["role"] == "user":
+            st.markdown('<div class="chat-user"><strong>OPERATOR</strong><br>' + msg["content"] + '</div>', unsafe_allow_html=True)
+        else:
+            st.markdown('<div class="chat-asst"><strong>ANALYST</strong><br>' + msg["content"] + '</div>', unsafe_allow_html=True)
+
     with st.form("chat_form", clear_on_submit=True):
-        user_input = st.text_input("Ask anything about your plant data...", key="_chat_input")
-        fc1, fc2 = st.columns([4, 1])
-        with fc1:
-            st.markdown(
-                '<span style="font-size:.62rem;color:' + MUTED + ';">' + CORTEX_MODEL + '</span>',
-                unsafe_allow_html=True,
-            )
-        with fc2:
-            send_clicked = st.form_submit_button("Send", use_container_width=True)
-
-    if not has_history:
-        pills_html = ""
-        for q in SUGGESTED_QUESTIONS:
-            pills_html += '<span class="chat-pill">' + q + '</span> '
-        st.markdown(
-            '<div style="text-align:center;margin-top:.3rem;">' + pills_html + '</div>',
-            unsafe_allow_html=True,
-        )
-
-    # Suggested question buttons (hidden row — actual clickable)
-    if not has_history:
-        pill_cols = st.columns(len(SUGGESTED_QUESTIONS))
-        for i, q in enumerate(SUGGESTED_QUESTIONS):
-            if pill_cols[i].button(q, key="sq_" + str(i), use_container_width=True):
-                st.session_state["_pending_query"] = q
-
-    # Chat history
-    if has_history:
-        c1, c2 = st.columns([4, 1])
-        with c2:
-            if st.button("Clear", use_container_width=True, key="chat_clear"):
-                st.session_state.chat_history = []
-                do_rerun()
-
-        for msg in st.session_state.chat_history:
-            if msg["role"] == "user":
-                st.markdown(
-                    '<div class="chat-user"><div class="chat-role">You</div>' + msg["content"] + '</div>',
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.markdown(
-                    '<div class="chat-asst"><div class="chat-role">Analyst</div>' + msg["content"] + '</div>',
-                    unsafe_allow_html=True,
-                )
+        col_input, col_btn = st.columns([5, 1])
+        with col_input:
+            user_input = st.text_input("Ask about maintenance, failures, or asset health...", key="_chat_input")
+        with col_btn:
+            st.markdown('<div style="height:.85rem;"></div>', unsafe_allow_html=True)
+            send_clicked = st.form_submit_button("SEND", use_container_width=True)
 
     query_to_process = None
     if send_clicked and user_input:

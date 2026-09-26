@@ -23,7 +23,8 @@ CREATE OR REPLACE NOTIFICATION INTEGRATION PM_EMAIL_NOTIFICATIONS
         'anita.sharma@ankl-pharma.com',
         'vijay.nair@ankl-pharma.com',
         'rohit.gupta@ankl-pharma.com',
-        'machpulse@forbesmarshall.com'
+        'machpulse@forbesmarshall.com',
+        'shreyanshu_yadav@atul.co.in'
     )
     COMMENT = 'Email notifications for vibration alerts and maintenance tickets';
 
