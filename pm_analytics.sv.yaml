@@ -1,0 +1,417 @@
+name: PM_ANALYTICS
+description: Predictive Maintenance & OEE Command Center analytics model covering
+  plant performance, asset health, vibration alerts, and maintenance tickets across
+  3 chemical/polymer/pharma plants.
+tables:
+  - name: DT_PLANT_DASHBOARD
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_PLANT_DASHBOARD
+    primary_key:
+      columns:
+        - PLANT_ID
+    dimensions:
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: TOTAL_ASSETS
+        expr: TOTAL_ASSETS
+        data_type: NUMBER
+      - name: ASSETS_LOW_RISK
+        expr: ASSETS_LOW_RISK
+        data_type: NUMBER
+      - name: ASSETS_MEDIUM_RISK
+        expr: ASSETS_MEDIUM_RISK
+        data_type: NUMBER
+      - name: ASSETS_HIGH_RISK
+        expr: ASSETS_HIGH_RISK
+        data_type: NUMBER
+      - name: ASSETS_CRITICAL_RISK
+        expr: ASSETS_CRITICAL_RISK
+        data_type: NUMBER
+      - name: OPEN_TICKETS
+        expr: OPEN_TICKETS
+        data_type: NUMBER
+      - name: CRITICAL_OPEN_TICKETS
+        expr: CRITICAL_OPEN_TICKETS
+        data_type: NUMBER
+      - name: ACTIVE_ALERTS
+        expr: ACTIVE_ALERTS
+        data_type: NUMBER
+      - name: CRITICAL_ALERTS
+        expr: CRITICAL_ALERTS
+        data_type: NUMBER
+    facts:
+      - name: AVG_HEALTH_SCORE
+        expr: AVG_HEALTH_SCORE
+        data_type: FLOAT
+      - name: MIN_HEALTH_SCORE
+        expr: MIN_HEALTH_SCORE
+        data_type: FLOAT
+      - name: AVG_OEE_30D
+        expr: AVG_OEE_30D
+        data_type: FLOAT
+      - name: AVG_AVAILABILITY_30D
+        expr: AVG_AVAILABILITY_30D
+        data_type: FLOAT
+      - name: AVG_PERFORMANCE_30D
+        expr: AVG_PERFORMANCE_30D
+        data_type: FLOAT
+      - name: AVG_QUALITY_30D
+        expr: AVG_QUALITY_30D
+        data_type: FLOAT
+      - name: AVG_MTTR_HOURS
+        expr: AVG_MTTR_HOURS
+        data_type: NUMBER
+  - name: DT_OEE_METRICS
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_OEE_METRICS
+    dimensions:
+      - name: RUN_ID
+        expr: RUN_ID
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: PRODUCTION_LINE
+        expr: PRODUCTION_LINE
+        data_type: VARCHAR
+      - name: SHIFT
+        expr: SHIFT
+        data_type: VARCHAR
+      - name: PLANNED_QUANTITY
+        expr: PLANNED_QUANTITY
+        data_type: NUMBER
+      - name: ACTUAL_QUANTITY
+        expr: ACTUAL_QUANTITY
+        data_type: NUMBER
+      - name: GOOD_QUANTITY
+        expr: GOOD_QUANTITY
+        data_type: NUMBER
+      - name: PRODUCT_CODE
+        expr: PRODUCT_CODE
+        data_type: VARCHAR
+      - name: OEE_CATEGORY
+        expr: OEE_CATEGORY
+        data_type: VARCHAR
+    time_dimensions:
+      - name: RUN_DATE
+        expr: RUN_DATE
+        data_type: DATE
+    facts:
+      - name: PLANNED_RUNTIME_MIN
+        expr: PLANNED_RUNTIME_MIN
+        data_type: FLOAT
+      - name: ACTUAL_RUNTIME_MIN
+        expr: ACTUAL_RUNTIME_MIN
+        data_type: FLOAT
+      - name: PLANNED_DOWNTIME_MIN
+        expr: PLANNED_DOWNTIME_MIN
+        data_type: FLOAT
+      - name: UNPLANNED_DOWNTIME_MIN
+        expr: UNPLANNED_DOWNTIME_MIN
+        data_type: FLOAT
+      - name: AVAILABILITY
+        expr: AVAILABILITY
+        data_type: FLOAT
+      - name: PERFORMANCE
+        expr: PERFORMANCE
+        data_type: FLOAT
+      - name: QUALITY
+        expr: QUALITY
+        data_type: FLOAT
+      - name: OEE
+        expr: OEE
+        data_type: FLOAT
+  - name: DT_VIBRATION_ALERTS
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_VIBRATION_ALERTS
+    dimensions:
+      - name: ASSET_ID
+        expr: ASSET_ID
+        data_type: VARCHAR
+      - name: ASSET_NAME
+        expr: ASSET_NAME
+        data_type: VARCHAR
+      - name: ASSET_TYPE
+        expr: ASSET_TYPE
+        data_type: VARCHAR
+      - name: MACHINE_CLASS
+        expr: MACHINE_CLASS
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: GROUP_NAME
+        expr: GROUP_NAME
+        data_type: VARCHAR
+      - name: CRITICALITY
+        expr: CRITICALITY
+        data_type: VARCHAR
+      - name: AREA_NAME
+        expr: AREA_NAME
+        data_type: VARCHAR
+      - name: WORST_ISO_ZONE
+        expr: WORST_ISO_ZONE
+        data_type: VARCHAR
+      - name: WORST_TEMP_STATUS
+        expr: WORST_TEMP_STATUS
+        data_type: VARCHAR
+      - name: ADR_RISK
+        expr: ADR_RISK
+        data_type: VARCHAR
+      - name: ALERT_SEVERITY
+        expr: ALERT_SEVERITY
+        data_type: VARCHAR
+      - name: RECOMMENDED_ACTION
+        expr: RECOMMENDED_ACTION
+        data_type: VARCHAR
+      - name: IS_ACTIONABLE
+        expr: IS_ACTIONABLE
+        data_type: BOOLEAN
+    time_dimensions:
+      - name: LAST_READING_TS
+        expr: LAST_READING_TS
+        data_type: TIMESTAMP_NTZ
+    facts:
+      - name: PEAK_VEL_RMS
+        expr: PEAK_VEL_RMS
+        data_type: FLOAT
+      - name: PEAK_RSS_ACCEL
+        expr: PEAK_RSS_ACCEL
+        data_type: FLOAT
+      - name: MAX_TEMPERATURE_C
+        expr: MAX_TEMPERATURE_C
+        data_type: FLOAT
+      - name: BEARING_HEALTH_SCORE
+        expr: BEARING_HEALTH_SCORE
+        data_type: FLOAT
+    unique_keys:
+      - columns:
+          - ASSET_ID
+          - ASSET_NAME
+          - ASSET_TYPE
+          - MACHINE_CLASS
+          - PLANT_ID
+          - PLANT_NAME
+          - GROUP_NAME
+          - CRITICALITY
+          - AREA_NAME
+  - name: DT_TICKET_ANALYTICS
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: ANALYTICS
+      table: DT_TICKET_ANALYTICS
+    dimensions:
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: TOTAL_TICKETS
+        expr: TOTAL_TICKETS
+        data_type: NUMBER
+      - name: CLOSED_TICKETS
+        expr: CLOSED_TICKETS
+        data_type: NUMBER
+      - name: OPEN_TICKETS
+        expr: OPEN_TICKETS
+        data_type: NUMBER
+      - name: CRITICAL_COUNT
+        expr: CRITICAL_COUNT
+        data_type: NUMBER
+      - name: HIGH_COUNT
+        expr: HIGH_COUNT
+        data_type: NUMBER
+      - name: MEDIUM_COUNT
+        expr: MEDIUM_COUNT
+        data_type: NUMBER
+      - name: LOW_COUNT
+        expr: LOW_COUNT
+        data_type: NUMBER
+      - name: BEARING_DEFECT_COUNT
+        expr: BEARING_DEFECT_COUNT
+        data_type: NUMBER
+      - name: MISALIGNMENT_COUNT
+        expr: MISALIGNMENT_COUNT
+        data_type: NUMBER
+      - name: UNBALANCE_COUNT
+        expr: UNBALANCE_COUNT
+        data_type: NUMBER
+      - name: LOOSENESS_COUNT
+        expr: LOOSENESS_COUNT
+        data_type: NUMBER
+      - name: ELECTRICAL_COUNT
+        expr: ELECTRICAL_COUNT
+        data_type: NUMBER
+      - name: LUBRICATION_COUNT
+        expr: LUBRICATION_COUNT
+        data_type: NUMBER
+      - name: MAX_MTTR_HOURS
+        expr: MAX_MTTR_HOURS
+        data_type: NUMBER
+    time_dimensions:
+      - name: MONTH
+        expr: MONTH
+        data_type: DATE
+    facts:
+      - name: AVG_MTTR_HOURS
+        expr: AVG_MTTR_HOURS
+        data_type: NUMBER
+      - name: MEDIAN_MTTR_HOURS
+        expr: MEDIAN_MTTR_HOURS
+        data_type: NUMBER
+      - name: AVG_TIME_TO_ACK_HOURS
+        expr: AVG_TIME_TO_ACK_HOURS
+        data_type: NUMBER
+      - name: TOTAL_DOWNTIME_HOURS
+        expr: TOTAL_DOWNTIME_HOURS
+        data_type: FLOAT
+      - name: AVG_HEALTH_IMPROVEMENT
+        expr: AVG_HEALTH_IMPROVEMENT
+        data_type: NUMBER
+    unique_keys:
+      - columns:
+          - PLANT_ID
+          - PLANT_NAME
+          - MONTH
+  - name: DT_BEARING_HEALTH
+    base_table:
+      database: PREDICTIVE_MAINTENANCE
+      schema: CURATED
+      table: DT_BEARING_HEALTH
+    dimensions:
+      - name: ASSET_ID
+        expr: ASSET_ID
+        data_type: VARCHAR
+      - name: ASSET_NAME
+        expr: ASSET_NAME
+        data_type: VARCHAR
+      - name: ASSET_TYPE
+        expr: ASSET_TYPE
+        data_type: VARCHAR
+      - name: MACHINE_CLASS
+        expr: MACHINE_CLASS
+        data_type: VARCHAR
+      - name: PLANT_ID
+        expr: PLANT_ID
+        data_type: VARCHAR
+      - name: PLANT_NAME
+        expr: PLANT_NAME
+        data_type: VARCHAR
+      - name: GROUP_NAME
+        expr: GROUP_NAME
+        data_type: VARCHAR
+      - name: CRITICALITY
+        expr: CRITICALITY
+        data_type: VARCHAR
+      - name: AREA_NAME
+        expr: AREA_NAME
+        data_type: VARCHAR
+      - name: WORST_ISO_ZONE
+        expr: WORST_ISO_ZONE
+        data_type: VARCHAR
+      - name: WORST_TEMP_STATUS
+        expr: WORST_TEMP_STATUS
+        data_type: VARCHAR
+      - name: ADR_RISK
+        expr: ADR_RISK
+        data_type: VARCHAR
+      - name: ANOMALY_FLAG
+        expr: ANOMALY_FLAG
+        data_type: BOOLEAN
+    time_dimensions:
+      - name: LAST_READING_TS
+        expr: LAST_READING_TS
+        data_type: TIMESTAMP_NTZ
+    facts:
+      - name: PEAK_VEL_RMS
+        expr: PEAK_VEL_RMS
+        data_type: FLOAT
+      - name: PEAK_RSS_ACCEL
+        expr: PEAK_RSS_ACCEL
+        data_type: FLOAT
+      - name: MAX_TEMPERATURE_C
+        expr: MAX_TEMPERATURE_C
+        data_type: FLOAT
+      - name: BEARING_HEALTH_SCORE
+        expr: BEARING_HEALTH_SCORE
+        data_type: FLOAT
+      - name: MAX_VEL_ZSCORE
+        expr: MAX_VEL_ZSCORE
+        data_type: FLOAT
+    unique_keys:
+      - columns:
+          - ASSET_ID
+          - ASSET_NAME
+          - ASSET_TYPE
+          - MACHINE_CLASS
+          - PLANT_ID
+          - PLANT_NAME
+          - GROUP_NAME
+          - CRITICALITY
+          - AREA_NAME
+verified_queries:
+  - name: 0;1
+    question: What is the OEE performance for each plant along with their asset counts
+      and risk status?
+    sql: SELECT PLANT_NAME, ROUND(AVG_OEE_30D * 100, 1) AS OEE_PCT, TOTAL_ASSETS,
+      ASSETS_CRITICAL_RISK, ACTIVE_ALERTS FROM dt_plant_dashboard ORDER BY AVG_OEE_30D
+      DESC
+    verified_at: 1790573771
+    verified_by: Semantic Model Generator
+  - name: 1;1
+    question: Which assets are in the worst condition?
+    sql: SELECT ASSET_ID, ASSET_NAME, PLANT_NAME, ROUND(BEARING_HEALTH_SCORE, 0) AS
+      HEALTH, ADR_RISK, ROUND(PEAK_VEL_RMS, 1) AS PEAK_VEL_MM_S, WORST_ISO_ZONE FROM
+      dt_bearing_health ORDER BY BEARING_HEALTH_SCORE ASC LIMIT 10
+    verified_at: 1790573771
+    verified_by: Semantic Model Generator
+  - name: 2;1
+    question: What are the current actionable vibration alerts that require immediate
+      attention?
+    sql: SELECT ALERT_SEVERITY, ASSET_NAME, PLANT_NAME, ROUND(BEARING_HEALTH_SCORE,
+      0) AS HEALTH, RECOMMENDED_ACTION FROM dt_vibration_alerts WHERE IS_ACTIONABLE
+      = TRUE ORDER BY CASE ALERT_SEVERITY WHEN 'CRITICAL' THEN 1 WHEN 'HIGH' THEN
+      2 ELSE 3 END
+    verified_at: 1790573771
+    verified_by: Semantic Model Generator
+  - name: 3;1
+    question: What are the most common failure modes across plants and how do they
+      compare by total maintenance tickets?
+    sql: SELECT PLANT_NAME, SUM(TOTAL_TICKETS) AS TICKETS, SUM(BEARING_DEFECT_COUNT)
+      AS BEARING, SUM(MISALIGNMENT_COUNT) AS MISALIGN, SUM(UNBALANCE_COUNT) AS UNBALANCE,
+      ROUND(AVG(AVG_MTTR_HOURS), 1) AS AVG_MTTR FROM dt_ticket_analytics GROUP BY
+      PLANT_NAME ORDER BY TICKETS DESC
+    verified_at: 1790573771
+    verified_by: Semantic Model Generator
+  - name: 4;1
+    question: What is the daily OEE trend by plant over the last 30 days?
+    sql: SELECT TO_CHAR(RUN_DATE, 'YYYY-MM-DD') AS DT, PLANT_NAME, ROUND(AVG(OEE)
+      * 100, 1) AS OEE_PCT FROM dt_oee_metrics WHERE RUN_DATE >= DATEADD(DAY, -30,
+      CURRENT_DATE) GROUP BY DT, PLANT_NAME ORDER BY DT
+    verified_at: 1790573771
+    verified_by: Semantic Model Generator
+  - name: 5;1
+    question: What is the distribution of assets across different risk categories
+      and their corresponding health metrics?
+    sql: SELECT ADR_RISK, COUNT(*) AS ASSET_COUNT, ROUND(AVG(BEARING_HEALTH_SCORE),
+      0) AS AVG_HEALTH, ROUND(AVG(PEAK_VEL_RMS), 1) AS AVG_VEL FROM dt_bearing_health
+      GROUP BY ADR_RISK ORDER BY AVG_HEALTH
+    verified_at: 1790573771
+    verified_by: Semantic Model Generator
